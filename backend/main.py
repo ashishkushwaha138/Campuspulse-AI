@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from io import BytesIO
 from datetime import datetime, timezone
 from pathlib import Path
@@ -30,9 +31,15 @@ LAST_ACTIONS: list[dict[str, Any]] = []
 SYNTHETIC_MODE = True
 
 app = FastAPI(title="CampusPulse AI", version="1.0.0", description="Student success analytics and intervention API")
+allowed_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+allowed_origins.extend(
+    origin.strip().rstrip("/")
+    for origin in os.getenv("FRONTEND_ORIGIN", "").split(",")
+    if origin.strip()
+)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

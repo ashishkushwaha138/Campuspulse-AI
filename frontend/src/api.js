@@ -1,6 +1,7 @@
 import { makeDemoInsights, makeDemoOverview, makeDemoSegments, makeDemoStudents } from './data.js'
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:8000/api'
+const API_ORIGIN = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '')
+const API = `${API_ORIGIN}/api`
 export const demoStudents = makeDemoStudents()
 
 async function get(path) {

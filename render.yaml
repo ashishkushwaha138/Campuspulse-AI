@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: campuspulse-api
+    runtime: python
+    plan: free
+    region: singapore
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: FRONTEND_ORIGIN
+        fromService:
+          type: web
+          name: campuspulse-frontend
+          envVarKey: RENDER_EXTERNAL_URL
+
+  - type: web
+    name: campuspulse-frontend
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: campuspulse-api
+          envVarKey: RENDER_EXTERNAL_URL

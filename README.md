@@ -120,3 +120,15 @@ backend/requirements.txt  API dependencies
 src/                      Data generation, score logic, risk and segments
 data/                     Generated CSV sources and action persistence
 ```
+
+## Deploy to Render
+
+The repository includes a Render Blueprint in `render.yaml`. It creates two connected services: a FastAPI API and a React static site. The Blueprint wires the API URL into the frontend build and allows requests from the deployed site.
+
+1. Push the latest project changes to the GitHub `main` branch.
+2. Sign in at [Render](https://render.com/) and choose **New +** → **Blueprint**.
+3. Connect `ashishkushwaha138/Campuspulse-AI` and select the `main` branch.
+4. Review the two services (`campuspulse-api` and `campuspulse-frontend`), choose the Free plan for the API, then create/apply the Blueprint.
+5. Wait for both deploys to finish. Open the frontend service's `onrender.com` URL. Check the API at `<API URL>/api/health` if the page does not load cohort data.
+
+The free API may take about a minute to wake after 15 minutes without traffic. Free services have an ephemeral filesystem, so assigned interventions written to `data/interventions.json` can be lost after a restart, spin-down, or redeploy. CSV uploads are held in memory and also reset when the API restarts. Use a persistent database before relying on intervention history for real users.
