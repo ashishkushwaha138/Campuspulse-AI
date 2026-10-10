@@ -1,0 +1,501 @@
+student_id,name,department,year,semester
+CP00001,Aarav Rao,Information Technology,3,6
+CP00002,Aditi Verma,Electronics,3,6
+CP00003,Aditya Patel,Mechanical,3,6
+CP00004,Ananya Bose,Civil,3,6
+CP00005,Arjun Das,BCA,3,6
+CP00006,Diya Fernandes,Computer Science,3,6
+CP00007,Ishaan Saxena,Information Technology,3,6
+CP00008,Kabir Bhat,Electronics,3,6
+CP00009,Kavya Kaur,Civil,3,6
+CP00010,Meera Mehta,BCA,3,6
+CP00011,Neha Rao,Computer Science,3,6
+CP00012,Priya Verma,Information Technology,3,6
+CP00013,Rohan Patel,Electronics,3,6
+CP00014,Sana Bose,Mechanical,3,6
+CP00015,Vihaan Das,Civil,3,6
+CP00016,Zoya Fernandes,BCA,3,6
+CP00017,Aanya Saxena,Computer Science,3,6
+CP00018,Advait Bhat,Electronics,3,6
+CP00019,Anika Kaur,Mechanical,3,6
+CP00020,Dev Mehta,Civil,3,6
+CP00021,Ira Rao,BCA,3,6
+CP00022,Kartik Verma,Computer Science,3,6
+CP00023,Mira Patel,Information Technology,3,6
+CP00024,Nikhil Bose,Electronics,3,6
+CP00025,Reyansh Das,Mechanical,3,6
+CP00026,Rhea Fernandes,Civil,3,6
+CP00027,Samar Saxena,Computer Science,3,6
+CP00028,Tara Bhat,Information Technology,3,6
+CP00029,Yash Kaur,Electronics,3,6
+CP00030,Aarohi Mehta,Mechanical,3,6
+CP00031,Ishan Rao,Civil,3,6
+CP00032,Naina Verma,BCA,3,6
+CP00033,Aarav Kulkarni,Computer Science,3,6
+CP00034,Aditi Iyer,Information Technology,3,6
+CP00035,Aditya Chatterjee,Electronics,3,6
+CP00036,Ananya Gupta,Civil,3,6
+CP00037,Arjun Mishra,BCA,3,6
+CP00038,Diya Mukherjee,Computer Science,3,6
+CP00039,Ishaan Thomas,Information Technology,3,6
+CP00040,Kabir Nair,Electronics,3,6
+CP00041,Kavya Shah,Mechanical,3,6
+CP00042,Meera Menon,Civil,3,6
+CP00043,Neha Kulkarni,BCA,3,6
+CP00044,Priya Iyer,Computer Science,3,6
+CP00045,Rohan Chatterjee,Electronics,3,6
+CP00046,Sana Gupta,Mechanical,3,6
+CP00047,Vihaan Mishra,Civil,3,6
+CP00048,Zoya Mukherjee,BCA,3,6
+CP00049,Aanya Thomas,Computer Science,3,6
+CP00050,Advait Nair,Information Technology,3,6
+CP00051,Anika Shah,Electronics,3,6
+CP00052,Dev Menon,Mechanical,3,6
+CP00053,Ira Kulkarni,Civil,3,6
+CP00054,Kartik Iyer,Computer Science,3,6
+CP00055,Mira Chatterjee,Information Technology,3,6
+CP00056,Nikhil Gupta,Electronics,3,6
+CP00057,Reyansh Mishra,Mechanical,3,6
+CP00058,Rhea Mukherjee,Civil,3,6
+CP00059,Samar Thomas,BCA,3,6
+CP00060,Tara Nair,Computer Science,3,6
+CP00061,Yash Shah,Information Technology,3,6
+CP00062,Aarohi Menon,Electronics,3,6
+CP00063,Ishan Kulkarni,Civil,3,6
+CP00064,Naina Iyer,BCA,3,6
+CP00065,Aarav Reddy,Computer Science,3,6
+CP00066,Aditi Pillai,Information Technology,3,6
+CP00067,Aditya Desai,Electronics,3,6
+CP00068,Ananya Jain,Mechanical,3,6
+CP00069,Arjun Shetty,Civil,3,6
+CP00070,Diya Kapoor,BCA,3,6
+CP00071,Ishaan Joshi,Computer Science,3,6
+CP00072,Kabir Singh,Electronics,3,6
+CP00073,Kavya Khan,Mechanical,3,6
+CP00074,Meera Malhotra,Civil,3,6
+CP00075,Neha Reddy,BCA,3,6
+CP00076,Priya Pillai,Computer Science,3,6
+CP00077,Rohan Desai,Information Technology,3,6
+CP00078,Sana Jain,Electronics,3,6
+CP00079,Vihaan Shetty,Mechanical,3,6
+CP00080,Zoya Kapoor,Civil,3,6
+CP00081,Aanya Joshi,Computer Science,3,6
+CP00082,Advait Singh,Information Technology,3,6
+CP00083,Anika Khan,Electronics,3,6
+CP00084,Dev Malhotra,Mechanical,3,6
+CP00085,Ira Reddy,Civil,3,6
+CP00086,Kartik Pillai,BCA,3,6
+CP00087,Mira Desai,Computer Science,3,6
+CP00088,Nikhil Jain,Information Technology,3,6
+CP00089,Reyansh Shetty,Electronics,3,6
+CP00090,Rhea Kapoor,Civil,3,6
+CP00091,Samar Joshi,BCA,3,6
+CP00092,Tara Singh,Computer Science,3,6
+CP00093,Yash Khan,Information Technology,3,6
+CP00094,Aarohi Malhotra,Electronics,3,6
+CP00095,Ishan Reddy,Mechanical,3,6
+CP00096,Naina Pillai,Civil,3,6
+CP00097,Aarav Bhat,BCA,3,6
+CP00098,Aditi Kaur,Computer Science,3,6
+CP00099,Aditya Mehta,Electronics,3,6
+CP00100,Ananya Rao,Mechanical,3,6
+CP00101,Arjun Verma,Civil,3,6
+CP00102,Diya Patel,BCA,3,6
+CP00103,Ishaan Bose,Computer Science,3,6
+CP00104,Kabir Das,Information Technology,3,6
+CP00105,Kavya Fernandes,Electronics,3,6
+CP00106,Meera Saxena,Mechanical,3,6
+CP00107,Neha Bhat,Civil,3,6
+CP00108,Priya Kaur,Computer Science,3,6
+CP00109,Rohan Mehta,Information Technology,3,6
+CP00110,Sana Rao,Electronics,3,6
+CP00111,Vihaan Verma,Mechanical,3,6
+CP00112,Zoya Patel,Civil,3,6
+CP00113,Aanya Bose,BCA,3,6
+CP00114,Advait Das,Computer Science,3,6
+CP00115,Anika Fernandes,Information Technology,3,6
+CP00116,Dev Saxena,Electronics,3,6
+CP00117,Ira Bhat,Civil,3,6
+CP00118,Kartik Kaur,BCA,3,6
+CP00119,Mira Mehta,Computer Science,3,6
+CP00120,Nikhil Rao,Information Technology,3,6
+CP00121,Reyansh Verma,Electronics,3,6
+CP00122,Rhea Patel,Mechanical,3,6
+CP00123,Samar Bose,Civil,3,6
+CP00124,Tara Das,BCA,3,6
+CP00125,Yash Fernandes,Computer Science,3,6
+CP00126,Aarohi Saxena,Electronics,3,6
+CP00127,Ishan Bhat,Mechanical,3,6
+CP00128,Naina Kaur,Civil,3,6
+CP00129,Aarav Nair,BCA,3,6
+CP00130,Aditi Shah,Computer Science,3,6
+CP00131,Aditya Menon,Information Technology,3,6
+CP00132,Ananya Kulkarni,Electronics,3,6
+CP00133,Arjun Iyer,Mechanical,3,6
+CP00134,Diya Chatterjee,Civil,3,6
+CP00135,Ishaan Gupta,Computer Science,3,6
+CP00136,Kabir Mishra,Information Technology,3,6
+CP00137,Kavya Mukherjee,Electronics,3,6
+CP00138,Meera Thomas,Mechanical,3,6
+CP00139,Neha Nair,Civil,3,6
+CP00140,Priya Shah,BCA,3,6
+CP00141,Rohan Menon,Computer Science,3,6
+CP00142,Sana Kulkarni,Information Technology,3,6
+CP00143,Vihaan Iyer,Electronics,3,6
+CP00144,Zoya Chatterjee,Civil,3,6
+CP00145,Aanya Gupta,BCA,3,6
+CP00146,Advait Mishra,Computer Science,3,6
+CP00147,Anika Mukherjee,Information Technology,3,6
+CP00148,Dev Thomas,Electronics,3,6
+CP00149,Ira Nair,Mechanical,3,6
+CP00150,Kartik Shah,Civil,3,6
+CP00151,Mira Menon,BCA,3,6
+CP00152,Nikhil Kulkarni,Computer Science,3,6
+CP00153,Reyansh Iyer,Electronics,3,6
+CP00154,Rhea Chatterjee,Mechanical,3,6
+CP00155,Samar Gupta,Civil,3,6
+CP00156,Tara Mishra,BCA,3,6
+CP00157,Yash Mukherjee,Computer Science,3,6
+CP00158,Aarohi Thomas,Information Technology,3,6
+CP00159,Ishan Nair,Electronics,3,6
+CP00160,Naina Shah,Mechanical,3,6
+CP00161,Aarav Singh,Civil,3,6
+CP00162,Aditi Khan,Computer Science,3,6
+CP00163,Aditya Malhotra,Information Technology,3,6
+CP00164,Ananya Reddy,Electronics,3,6
+CP00165,Arjun Pillai,Mechanical,3,6
+CP00166,Diya Desai,Civil,3,6
+CP00167,Ishaan Jain,BCA,3,6
+CP00168,Kabir Shetty,Computer Science,3,6
+CP00169,Kavya Kapoor,Information Technology,3,6
+CP00170,Meera Joshi,Electronics,3,6
+CP00171,Neha Singh,Civil,3,6
+CP00172,Priya Khan,BCA,3,6
+CP00173,Rohan Malhotra,Computer Science,3,6
+CP00174,Sana Reddy,Information Technology,3,6
+CP00175,Vihaan Pillai,Electronics,3,6
+CP00176,Zoya Desai,Mechanical,3,6
+CP00177,Aanya Jain,Civil,3,6
+CP00178,Advait Shetty,BCA,3,6
+CP00179,Anika Kapoor,Computer Science,3,6
+CP00180,Dev Joshi,Electronics,3,6
+CP00181,Ira Singh,Mechanical,3,6
+CP00182,Kartik Khan,Civil,3,6
+CP00183,Mira Malhotra,BCA,3,6
+CP00184,Nikhil Reddy,Computer Science,3,6
+CP00185,Reyansh Pillai,Information Technology,3,6
+CP00186,Rhea Desai,Electronics,3,6
+CP00187,Samar Jain,Mechanical,3,6
+CP00188,Tara Shetty,Civil,3,6
+CP00189,Yash Kapoor,Computer Science,3,6
+CP00190,Aarohi Joshi,Information Technology,3,6
+CP00191,Ishan Singh,Electronics,3,6
+CP00192,Naina Khan,Mechanical,3,6
+CP00193,Aarav Das,Civil,3,6
+CP00194,Aditi Fernandes,BCA,3,6
+CP00195,Aditya Saxena,Computer Science,3,6
+CP00196,Ananya Bhat,Information Technology,3,6
+CP00197,Arjun Kaur,Electronics,3,6
+CP00198,Diya Mehta,Civil,3,6
+CP00199,Ishaan Rao,BCA,3,6
+CP00200,Kabir Verma,Computer Science,3,6
+CP00201,Kavya Patel,Information Technology,3,6
+CP00202,Meera Bose,Electronics,3,6
+CP00203,Neha Das,Mechanical,3,6
+CP00204,Priya Fernandes,Civil,3,6
+CP00205,Rohan Saxena,BCA,3,6
+CP00206,Sana Bhat,Computer Science,3,6
+CP00207,Vihaan Kaur,Electronics,3,6
+CP00208,Zoya Mehta,Mechanical,3,6
+CP00209,Aanya Rao,Civil,3,6
+CP00210,Advait Verma,BCA,3,6
+CP00211,Anika Patel,Computer Science,3,6
+CP00212,Dev Bose,Information Technology,3,6
+CP00213,Ira Das,Electronics,3,6
+CP00214,Kartik Fernandes,Mechanical,3,6
+CP00215,Mira Saxena,Civil,3,6
+CP00216,Nikhil Bhat,Computer Science,3,6
+CP00217,Reyansh Kaur,Information Technology,3,6
+CP00218,Rhea Mehta,Electronics,3,6
+CP00219,Samar Rao,Mechanical,3,6
+CP00220,Tara Verma,Civil,3,6
+CP00221,Yash Patel,BCA,3,6
+CP00222,Aarohi Bose,Computer Science,3,6
+CP00223,Ishan Das,Information Technology,3,6
+CP00224,Naina Fernandes,Electronics,3,6
+CP00225,Aarav Mishra,Civil,3,6
+CP00226,Aditi Mukherjee,BCA,3,6
+CP00227,Aditya Thomas,Computer Science,3,6
+CP00228,Ananya Nair,Information Technology,3,6
+CP00229,Arjun Shah,Electronics,3,6
+CP00230,Diya Menon,Mechanical,3,6
+CP00231,Ishaan Kulkarni,Civil,3,6
+CP00232,Kabir Iyer,BCA,3,6
+CP00233,Kavya Chatterjee,Computer Science,3,6
+CP00234,Meera Gupta,Electronics,3,6
+CP00235,Neha Mishra,Mechanical,3,6
+CP00236,Priya Mukherjee,Civil,3,6
+CP00237,Rohan Thomas,BCA,3,6
+CP00238,Sana Nair,Computer Science,3,6
+CP00239,Vihaan Shah,Information Technology,3,6
+CP00240,Zoya Menon,Electronics,3,6
+CP00241,Aanya Kulkarni,Mechanical,3,6
+CP00242,Advait Iyer,Civil,3,6
+CP00243,Anika Chatterjee,Computer Science,3,6
+CP00244,Dev Gupta,Information Technology,3,6
+CP00245,Ira Mishra,Electronics,3,6
+CP00246,Kartik Mukherjee,Mechanical,3,6
+CP00247,Mira Thomas,Civil,3,6
+CP00248,Nikhil Nair,BCA,3,6
+CP00249,Reyansh Shah,Computer Science,3,6
+CP00250,Rhea Menon,Information Technology,3,6
+CP00251,Samar Kulkarni,Electronics,3,6
+CP00252,Tara Iyer,Civil,3,6
+CP00253,Yash Chatterjee,BCA,3,6
+CP00254,Aarohi Gupta,Computer Science,3,6
+CP00255,Ishan Mishra,Information Technology,3,6
+CP00256,Naina Mukherjee,Electronics,3,6
+CP00257,Aarav Shetty,Mechanical,3,6
+CP00258,Aditi Kapoor,Civil,3,6
+CP00259,Aditya Joshi,BCA,3,6
+CP00260,Ananya Singh,Computer Science,3,6
+CP00261,Arjun Khan,Electronics,3,6
+CP00262,Diya Malhotra,Mechanical,3,6
+CP00263,Ishaan Reddy,Civil,3,6
+CP00264,Kabir Pillai,BCA,3,6
+CP00265,Kavya Desai,Computer Science,3,6
+CP00266,Meera Jain,Information Technology,3,6
+CP00267,Neha Shetty,Electronics,3,6
+CP00268,Priya Kapoor,Mechanical,3,6
+CP00269,Rohan Joshi,Civil,3,6
+CP00270,Sana Singh,Computer Science,3,6
+CP00271,Vihaan Khan,Information Technology,3,6
+CP00272,Zoya Malhotra,Electronics,3,6
+CP00273,Aanya Reddy,Mechanical,3,6
+CP00274,Advait Pillai,Civil,3,6
+CP00275,Anika Desai,BCA,3,6
+CP00276,Dev Jain,Computer Science,3,6
+CP00277,Ira Shetty,Information Technology,3,6
+CP00278,Kartik Kapoor,Electronics,3,6
+CP00279,Mira Joshi,Civil,3,6
+CP00280,Nikhil Singh,BCA,3,6
+CP00281,Reyansh Khan,Computer Science,3,6
+CP00282,Rhea Malhotra,Information Technology,3,6
+CP00283,Samar Reddy,Electronics,3,6
+CP00284,Tara Pillai,Mechanical,3,6
+CP00285,Yash Desai,Civil,3,6
+CP00286,Aarohi Jain,BCA,3,6
+CP00287,Ishan Shetty,Computer Science,3,6
+CP00288,Naina Kapoor,Electronics,3,6
+CP00289,Aarav Verma,Mechanical,3,6
+CP00290,Aditi Patel,Civil,3,6
+CP00291,Aditya Bose,BCA,3,6
+CP00292,Ananya Das,Computer Science,3,6
+CP00293,Arjun Fernandes,Information Technology,3,6
+CP00294,Diya Saxena,Electronics,3,6
+CP00295,Ishaan Bhat,Mechanical,3,6
+CP00296,Kabir Kaur,Civil,3,6
+CP00297,Kavya Mehta,Computer Science,3,6
+CP00298,Meera Rao,Information Technology,3,6
+CP00299,Neha Verma,Electronics,3,6
+CP00300,Priya Patel,Mechanical,3,6
+CP00301,Rohan Bose,Civil,3,6
+CP00302,Sana Das,BCA,3,6
+CP00303,Vihaan Fernandes,Computer Science,3,6
+CP00304,Zoya Saxena,Information Technology,3,6
+CP00305,Aanya Bhat,Electronics,3,6
+CP00306,Advait Kaur,Civil,3,6
+CP00307,Anika Mehta,BCA,3,6
+CP00308,Dev Rao,Computer Science,3,6
+CP00309,Ira Verma,Information Technology,3,6
+CP00310,Kartik Patel,Electronics,3,6
+CP00311,Mira Bose,Mechanical,3,6
+CP00312,Nikhil Das,Civil,3,6
+CP00313,Reyansh Fernandes,BCA,3,6
+CP00314,Rhea Saxena,Computer Science,3,6
+CP00315,Samar Bhat,Electronics,3,6
+CP00316,Tara Kaur,Mechanical,3,6
+CP00317,Yash Mehta,Civil,3,6
+CP00318,Aarohi Rao,BCA,3,6
+CP00319,Ishan Verma,Computer Science,3,6
+CP00320,Naina Patel,Information Technology,3,6
+CP00321,Aarav Iyer,Electronics,3,6
+CP00322,Aditi Chatterjee,Mechanical,3,6
+CP00323,Aditya Gupta,Civil,3,6
+CP00324,Ananya Mishra,Computer Science,3,6
+CP00325,Arjun Mukherjee,Information Technology,3,6
+CP00326,Diya Thomas,Electronics,3,6
+CP00327,Ishaan Nair,Mechanical,3,6
+CP00328,Kabir Shah,Civil,3,6
+CP00329,Kavya Menon,BCA,3,6
+CP00330,Meera Kulkarni,Computer Science,3,6
+CP00331,Neha Iyer,Information Technology,3,6
+CP00332,Priya Chatterjee,Electronics,3,6
+CP00333,Rohan Gupta,Civil,3,6
+CP00334,Sana Mishra,BCA,3,6
+CP00335,Vihaan Mukherjee,Computer Science,3,6
+CP00336,Zoya Thomas,Information Technology,3,6
+CP00337,Aanya Nair,Electronics,3,6
+CP00338,Advait Shah,Mechanical,3,6
+CP00339,Anika Menon,Civil,3,6
+CP00340,Dev Kulkarni,BCA,3,6
+CP00341,Ira Iyer,Computer Science,3,6
+CP00342,Kartik Chatterjee,Electronics,3,6
+CP00343,Mira Gupta,Mechanical,3,6
+CP00344,Nikhil Mishra,Civil,3,6
+CP00345,Reyansh Mukherjee,BCA,3,6
+CP00346,Rhea Thomas,Computer Science,3,6
+CP00347,Samar Nair,Information Technology,3,6
+CP00348,Tara Shah,Electronics,3,6
+CP00349,Yash Menon,Mechanical,3,6
+CP00350,Aarohi Kulkarni,Civil,3,6
+CP00351,Ishan Iyer,Computer Science,3,6
+CP00352,Naina Chatterjee,Information Technology,3,6
+CP00353,Aarav Pillai,Electronics,3,6
+CP00354,Aditi Desai,Mechanical,3,6
+CP00355,Aditya Jain,Civil,3,6
+CP00356,Ananya Shetty,BCA,3,6
+CP00357,Arjun Kapoor,Computer Science,3,6
+CP00358,Diya Joshi,Information Technology,3,6
+CP00359,Ishaan Singh,Electronics,3,6
+CP00360,Kabir Khan,Civil,3,6
+CP00361,Kavya Malhotra,BCA,3,6
+CP00362,Meera Reddy,Computer Science,3,6
+CP00363,Neha Pillai,Information Technology,3,6
+CP00364,Priya Desai,Electronics,3,6
+CP00365,Rohan Jain,Mechanical,3,6
+CP00366,Sana Shetty,Civil,3,6
+CP00367,Vihaan Kapoor,BCA,3,6
+CP00368,Zoya Joshi,Computer Science,3,6
+CP00369,Aanya Singh,Electronics,3,6
+CP00370,Advait Khan,Mechanical,3,6
+CP00371,Anika Malhotra,Civil,3,6
+CP00372,Dev Reddy,BCA,3,6
+CP00373,Ira Pillai,Computer Science,3,6
+CP00374,Kartik Desai,Information Technology,3,6
+CP00375,Mira Jain,Electronics,3,6
+CP00376,Nikhil Shetty,Mechanical,3,6
+CP00377,Reyansh Kapoor,Civil,3,6
+CP00378,Rhea Joshi,Computer Science,3,6
+CP00379,Samar Singh,Information Technology,3,6
+CP00380,Tara Khan,Electronics,3,6
+CP00381,Yash Malhotra,Mechanical,3,6
+CP00382,Aarohi Reddy,Civil,3,6
+CP00383,Ishan Pillai,BCA,3,6
+CP00384,Naina Desai,Computer Science,3,6
+CP00385,Aarav Kaur,Information Technology,3,6
+CP00386,Aditi Mehta,Electronics,3,6
+CP00387,Aditya Rao,Civil,3,6
+CP00388,Ananya Verma,BCA,3,6
+CP00389,Arjun Patel,Computer Science,3,6
+CP00390,Diya Bose,Information Technology,3,6
+CP00391,Ishaan Das,Electronics,3,6
+CP00392,Kabir Fernandes,Mechanical,3,6
+CP00393,Kavya Saxena,Civil,3,6
+CP00394,Meera Bhat,BCA,3,6
+CP00395,Neha Kaur,Computer Science,3,6
+CP00396,Priya Mehta,Electronics,3,6
+CP00397,Rohan Rao,Mechanical,3,6
+CP00398,Sana Verma,Civil,3,6
+CP00399,Vihaan Patel,BCA,3,6
+CP00400,Zoya Bose,Computer Science,3,6
+CP00401,Aanya Das,Information Technology,3,6
+CP00402,Advait Fernandes,Electronics,3,6
+CP00403,Anika Saxena,Mechanical,3,6
+CP00404,Dev Bhat,Civil,3,6
+CP00405,Ira Kaur,Computer Science,3,6
+CP00406,Kartik Mehta,Information Technology,3,6
+CP00407,Mira Rao,Electronics,3,6
+CP00408,Nikhil Verma,Mechanical,3,6
+CP00409,Reyansh Patel,Civil,3,6
+CP00410,Rhea Bose,BCA,3,6
+CP00411,Samar Das,Computer Science,3,6
+CP00412,Tara Fernandes,Information Technology,3,6
+CP00413,Yash Saxena,Electronics,3,6
+CP00414,Aarohi Bhat,Civil,3,6
+CP00415,Ishan Kaur,BCA,3,6
+CP00416,Naina Mehta,Computer Science,3,6
+CP00417,Aarav Shah,Information Technology,3,6
+CP00418,Aditi Menon,Electronics,3,6
+CP00419,Aditya Kulkarni,Mechanical,3,6
+CP00420,Ananya Iyer,Civil,3,6
+CP00421,Arjun Chatterjee,BCA,3,6
+CP00422,Diya Gupta,Computer Science,3,6
+CP00423,Ishaan Mishra,Electronics,3,6
+CP00424,Kabir Mukherjee,Mechanical,3,6
+CP00425,Kavya Thomas,Civil,3,6
+CP00426,Meera Nair,BCA,3,6
+CP00427,Neha Shah,Computer Science,3,6
+CP00428,Priya Menon,Information Technology,3,6
+CP00429,Rohan Kulkarni,Electronics,3,6
+CP00430,Sana Iyer,Mechanical,3,6
+CP00431,Vihaan Chatterjee,Civil,3,6
+CP00432,Zoya Gupta,Computer Science,3,6
+CP00433,Aanya Mishra,Information Technology,3,6
+CP00434,Advait Mukherjee,Electronics,3,6
+CP00435,Anika Thomas,Mechanical,3,6
+CP00436,Dev Nair,Civil,3,6
+CP00437,Ira Shah,BCA,3,6
+CP00438,Kartik Menon,Computer Science,3,6
+CP00439,Mira Kulkarni,Information Technology,3,6
+CP00440,Nikhil Iyer,Electronics,3,6
+CP00441,Reyansh Chatterjee,Civil,3,6
+CP00442,Rhea Gupta,BCA,3,6
+CP00443,Samar Mishra,Computer Science,3,6
+CP00444,Tara Mukherjee,Information Technology,3,6
+CP00445,Yash Thomas,Electronics,3,6
+CP00446,Aarohi Nair,Mechanical,3,6
+CP00447,Ishan Shah,Civil,3,6
+CP00448,Naina Menon,BCA,3,6
+CP00449,Aarav Khan,Computer Science,3,6
+CP00450,Aditi Malhotra,Electronics,3,6
+CP00451,Aditya Reddy,Mechanical,3,6
+CP00452,Ananya Pillai,Civil,3,6
+CP00453,Arjun Desai,BCA,3,6
+CP00454,Diya Jain,Computer Science,3,6
+CP00455,Ishaan Shetty,Information Technology,3,6
+CP00456,Kabir Kapoor,Electronics,3,6
+CP00457,Kavya Joshi,Mechanical,3,6
+CP00458,Meera Singh,Civil,3,6
+CP00459,Neha Khan,Computer Science,3,6
+CP00460,Priya Malhotra,Information Technology,3,6
+CP00461,Rohan Reddy,Electronics,3,6
+CP00462,Sana Pillai,Mechanical,3,6
+CP00463,Vihaan Desai,Civil,3,6
+CP00464,Zoya Jain,BCA,3,6
+CP00465,Aanya Shetty,Computer Science,3,6
+CP00466,Advait Kapoor,Information Technology,3,6
+CP00467,Anika Joshi,Electronics,3,6
+CP00468,Dev Singh,Civil,3,6
+CP00469,Ira Khan,BCA,3,6
+CP00470,Kartik Malhotra,Computer Science,3,6
+CP00471,Mira Reddy,Information Technology,3,6
+CP00472,Nikhil Pillai,Electronics,3,6
+CP00473,Reyansh Desai,Mechanical,3,6
+CP00474,Rhea Jain,Civil,3,6
+CP00475,Samar Shetty,BCA,3,6
+CP00476,Tara Kapoor,Computer Science,3,6
+CP00477,Yash Joshi,Electronics,3,6
+CP00478,Aarohi Singh,Mechanical,3,6
+CP00479,Ishan Khan,Civil,3,6
+CP00480,Naina Malhotra,BCA,3,6
+CP00481,Aarav Fernandes,Computer Science,3,6
+CP00482,Aditi Saxena,Information Technology,3,6
+CP00483,Aditya Bhat,Electronics,3,6
+CP00484,Ananya Kaur,Mechanical,3,6
+CP00485,Arjun Mehta,Civil,3,6
+CP00486,Diya Rao,Computer Science,3,6
+CP00487,Ishaan Verma,Information Technology,3,6
+CP00488,Kabir Patel,Electronics,3,6
+CP00489,Kavya Bose,Mechanical,3,6
+CP00490,Meera Das,Civil,3,6
+CP00491,Neha Fernandes,BCA,3,6
+CP00492,Priya Saxena,Computer Science,3,6
+CP00493,Rohan Bhat,Information Technology,3,6
+CP00494,Sana Kaur,Electronics,3,6
+CP00495,Vihaan Mehta,Civil,3,6
+CP00496,Zoya Rao,BCA,3,6
+CP00497,Aanya Verma,Computer Science,3,6
+CP00498,Advait Patel,Information Technology,3,6
+CP00499,Anika Bose,Electronics,3,6
+CP00500,Dev Das,Mechanical,3,6

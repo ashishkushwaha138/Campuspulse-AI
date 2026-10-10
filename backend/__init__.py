@@ -1,0 +1,1 @@
+"""CampusPulse AI FastAPI service."""
