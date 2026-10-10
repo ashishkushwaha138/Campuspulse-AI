@@ -70,6 +70,12 @@ The generated cohort has six semester records per student. Recommended source fi
 
 Use **Import data** in the app to select one or more CSV files. The source loader integrates records on the shared keys and applies the same scoring workflow. The API keeps imported data in memory for the current run; restart returns to the generated demo cohort. Confirm column definitions, student consent, and data access policies before using real campus records.
 
+An all-in-one CSV is also supported. Every file must contain a shared student identifier; accepted examples include `student_id`, `roll_no`, `enrollment_no`, and `registration_no`. Common header variants such as `student_name`, `dept`, `attendance %`, `gpa`, `marks`, `aptitude`, and `coding` are normalized during import. Semester is optional for a single-term export. For separate files, use matching student identifiers in each file and include a roster with names. Duplicate student/semester keys, ambiguous duplicate headers, and IDs missing from the roster are rejected with a specific error. Identifiers are read as text so leading zeroes are retained.
+
+The dashboard tracks coverage for academic, attendance, LMS, skills, placement, and engagement inputs. Missing values are filled with a cohort median where possible, otherwise a neutral midpoint; missingness is retained, risk rules skip unavailable signals, and the UI shows the coverage warning. Out-of-range numeric values are clipped to their valid scales and counted. An import updates the in-memory dataset only after all rows validate and analytics rebuild successfully. Uploaded data is not saved across API restarts.
+
+The current system calculates explainable risk rules and fits K-means segments to the uploaded cohort; it is not a validated supervised prediction model. Training a real early-warning model requires historical outcome labels such as next-term failure, retention, or placement, with consent and a held-out evaluation set. The public Render app does not have administrator authentication or authorization. Use synthetic data only until access control and persistent storage are implemented and reviewed.
+
 ## Student Success Score
 
 All five indicators are normalized to 0–100 and combined as:
@@ -88,7 +94,7 @@ Success Score = 0.35 × Academic
 - **Skills (15%)** = 60% technical assessment + 40% soft-skill assessment.
 - **Placement readiness (15%)** = 45% aptitude + 45% coding + 10% mock interviews normalized to five per term.
 
-High risk is flagged below 55 score, below 65% attendance, or at two or more active backlogs. Medium risk is flagged below 70 score, below 75% attendance, or below 45 LMS component if no High rule applies. The placement-gap badge means CGPA above 7.5 and either coding or aptitude below the cohort median. The full notes and rationale are in [score-methodology.md](score-methodology.md).
+High risk is flagged below 55 score when source coverage is at least 80%, below 65% observed attendance, or at two or more observed backlogs. Medium risk is flagged below 70 score when source coverage is at least 80%, below 75% observed attendance, or below 45 observed LMS component if no High rule applies. The placement-gap badge means CGPA above 7.5 and either coding or aptitude below the median among students with observed placement data. The full notes and rationale are in [score-methodology.md](score-methodology.md).
 
 ## Modeling and responsible use
 

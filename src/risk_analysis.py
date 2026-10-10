@@ -63,23 +63,27 @@ def assign_segments(frame: pd.DataFrame, seed: int = 24) -> tuple[pd.DataFrame, 
     data["cluster_id"] = cluster_ids
     centers = pd.DataFrame(center_values, columns=SEGMENT_FEATURES)
 
-    # Give each learned centroid one human-readable profile label, selected by its relative signals.
-    profiles = centers.copy()
-    profiles["placement_gap_strength"] = profiles["academic_component"] - profiles["placement_component"]
-    profiles["disengagement_strength"] = 100 - (profiles["attendance_component"] + profiles["lms_component"]) / 2
-    profiles["silent_strength"] = profiles["attendance_component"] - profiles["academic_component"]
-    labels: dict[int, str] = {}
-    remaining = set(centers.index)
-    for metric, label in [
-        ("disengagement_strength", "Disengaged"),
-        ("placement_gap_strength", "Placement Gap"),
-        ("silent_strength", "Silent Strugglers"),
-        ("academic_component", "High Performers"),
-    ]:
-        available = profiles.loc[sorted(remaining)]
-        selected = int(available[metric].idxmax())
-        labels[selected] = label
-        remaining.remove(selected)
+    # Match learned clusters to explicit interpretable profile prototypes. The
+    # prior relative ranking could label an ordinary low-performing cluster
+    # "High Performers" simply because it was the strongest of four centroids.
+    from itertools import permutations
+
+    labels_order = ["High Performers", "Silent Strugglers", "Placement Gap", "Disengaged"]
+    prototypes = np.array([
+        [82, 82, 75, 74, 74, 68],  # consistently strong signals
+        [48, 82, 55, 52, 52, 50],  # attendance holds while academics lag
+        [82, 78, 69, 48, 65, 58],  # academic strength, weaker placement prep
+        [55, 55, 40, 46, 45, 35],  # low attendance and LMS activity
+    ], dtype=float)
+    standardized_centers = centers[SEGMENT_FEATURES].to_numpy(dtype=float) / 100
+    standardized_prototypes = prototypes / 100
+    best_cost = float("inf")
+    best_assignment = tuple(range(4))
+    for assignment in permutations(range(4)):
+        cost = sum(float(((standardized_centers[index] - standardized_prototypes[profile]) ** 2).sum()) for index, profile in enumerate(assignment))
+        if cost < best_cost:
+            best_cost, best_assignment = cost, assignment
+    labels = {cluster_id: labels_order[profile_id] for cluster_id, profile_id in enumerate(best_assignment)}
     data["segment"] = data["cluster_id"].map(labels)
     centers["segment"] = centers.index.map(labels)
     return data, centers.sort_values("segment")
@@ -87,15 +91,18 @@ def assign_segments(frame: pd.DataFrame, seed: int = 24) -> tuple[pd.DataFrame, 
 
 def recommendations(row: pd.Series) -> list[str]:
     suggestions: list[str] = []
-    if row["attendance_pct"] < 70:
+    if int(row.get("data_coverage", 100)) < 60:
+        missing = ", ".join(row.get("missing_indicators", [])) or "key indicators"
+        suggestions.append(f"Complete the missing {missing} data; treat this profile as provisional until coverage improves.")
+    if not row.get("attendance_missing", False) and row["attendance_pct"] < 70:
         suggestions.append("Advisor check-in this week; identify timetable, health, travel, or access barriers.")
-    if row["academic_component"] < 55 or row["backlogs"] >= 1:
+    if (not row.get("academic_missing", False) and row["academic_component"] < 55) or (not row.get("backlogs_missing", False) and row["backlogs"] >= 1):
         suggestions.append("Offer subject-level remedial support and a fortnightly assessment recovery plan.")
-    if row["placement_gap"]:
+    if bool(row.get("placement_gap", False)):
         suggestions.append("Invite to a coding/aptitude bridge cohort and review a mock test in four weeks.")
-    if row["lms_component"] < 50:
+    if not row.get("lms_missing", False) and row["lms_component"] < 50:
         suggestions.append("Set a weekly LMS and assignment check-in with a faculty mentor.")
-    if row["skills_component"] < 55:
+    if not row.get("skills_missing", False) and row["skills_component"] < 55:
         suggestions.append("Pair with a peer mentor for technical practice and communication feedback.")
     if not suggestions:
         suggestions.append("Recognize progress; offer peer mentoring or an advanced project opportunity.")

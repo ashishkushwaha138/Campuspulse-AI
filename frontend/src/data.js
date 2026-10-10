@@ -9,33 +9,61 @@ const profiles = [
   {segment:'Balanced Progress',academic:70,attendance:78,lms:73,placement:68,skills:70,engagement:65,cgpa:7.3,aptitude:69,coding:68,assignment:72},
 ]
 const clamp = (v) => Math.max(25, Math.min(99, Math.round(v)))
-const score = (p) => Math.round(p.academic*.35 + p.attendance*.2 + p.lms*.15 + p.skills*.15 + p.placement*.15)
+const bounded = (v, min=0, max=100) => Math.max(min, Math.min(max, v))
+const score = (s) => Math.round(s.academic*.35 + s.attendance*.2 + s.lms*.15 + s.skills*.15 + s.placement*.15)
 
 export function makeDemoStudents(count = 72) {
-  return Array.from({length:count}, (_, i) => {
+  const students = Array.from({length:count}, (_, i) => {
     const p = profiles[(i * 7 + Math.floor(i / 4)) % profiles.length]
     const wobble = (seed, range = 7) => Math.sin((i + 2) * seed) * range
     const s = { ...p }
-    for (const key of ['academic','attendance','lms','placement','skills','engagement']) s[key] = clamp(p[key] + wobble((i%5+1)*.37))
-    s.score = score(s)
-    s.risk = s.score < 55 || s.attendance < 65 ? 'High' : s.score < 70 || s.attendance < 75 ? 'Medium' : 'Low'
     s.id = `CP${String(24001+i).padStart(5,'0')}`
     s.name = `${first[i%first.length]} ${last[(i*7+Math.floor(i/first.length))%last.length]}`
     s.department = departments[(i*5+Math.floor(i/6))%departments.length]
     s.cgpa = Math.max(4, Math.min(10, +(p.cgpa + wobble(.19,.45)).toFixed(1)))
+    s.internal_marks = clamp(p.academic + wobble(.31,8))
+    s.exam_marks = clamp(p.academic + wobble(.43,9))
+    s.academic = bounded((s.cgpa/10*100)*.65 + ((s.internal_marks+s.exam_marks)/2)*.35)
+    s.attendance = bounded(p.attendance + wobble(.41,7))
     s.attendance_pct = s.attendance
     s.assignment_completion = clamp(p.assignment + wobble(.53,9))
+    const targetLms = bounded(p.lms + wobble(.59,8))
+    s.login_frequency = Math.round(bounded(((targetLms-s.assignment_completion*.65)/.35)*24/100,0,24))
+    s.lms = bounded(Math.min(s.login_frequency/24*100,100)*.35 + s.assignment_completion*.65)
     s.aptitude_score = clamp(p.aptitude + wobble(.71,10))
     s.coding_score = clamp(p.coding + wobble(.89,11))
+    s.mock_interviews = i%6
+    s.placement = bounded(s.aptitude_score*.45+s.coding_score*.45+Math.min(s.mock_interviews/5*100,100)*.10)
+    s.technical_score = clamp(p.skills + wobble(.97,7))
+    s.soft_skill_score = clamp(p.skills + wobble(1.11,8))
+    s.skills = bounded(s.technical_score*.6+s.soft_skill_score*.4)
+    s.events = Math.round(bounded((p.engagement-20)/15 + wobble(1.27,1),0,8))
+    s.certifications = i%4
+    s.hackathons = i%3===0?1:0
+    s.engagement = bounded(s.events*10+s.certifications*8+s.hackathons*15)
     s.backlogs = s.academic < 55 ? (i%3===0 ? 2 : 1) : (i%13===0 ? 1 : 0)
-    s.placement_gap = s.cgpa > 7.5 && (s.coding_score < 66 || s.aptitude_score < 68)
-    s.placement_ready = s.cgpa >= 7.5 && s.coding_score >= 70 && s.aptitude_score >= 70
+    s.score = score(s)
+    s.risk = s.score < 55 || s.attendance < 65 || s.backlogs >= 2 ? 'High' : s.score < 70 || s.attendance < 75 || s.lms < 45 ? 'Medium' : 'Low'
+    s.placement_ready = s.cgpa >= 7.5 && s.aptitude_score >= 70 && s.coding_score >= 65
     s.score_components = {Academic:s.academic,Attendance:s.attendance,'LMS activity':s.lms,Placement:s.placement,Skills:s.skills,Engagement:s.engagement}
-    s.risk_reasons = [s.attendance < 65 && 'Attendance is below the 65% support threshold', s.academic < 55 && 'Academic component is below 55/100', s.backlogs >= 2 && 'Two or more active backlogs', s.lms < 45 && 'LMS activity is below cohort expectations'].filter(Boolean)
+    s.risk_reasons = [s.score < 55 && `Success Score is ${s.score}/100 (below 55)`, s.score >= 55 && s.score < 70 && `Success Score is ${s.score}/100 (below 70)`, s.attendance < 65 && `Attendance is ${Math.round(s.attendance)}% (below 65%)`, s.academic < 55 && `Academic component is ${Math.round(s.academic)}/100`, s.backlogs >= 2 && 'Two or more active backlogs', s.lms < 45 && `LMS activity is ${Math.round(s.lms)}/100`, s.skills < 50 && `Skills assessment is ${Math.round(s.skills)}/100`].filter(Boolean)
     if (!s.risk_reasons.length && s.risk !== 'Low') s.risk_reasons.push('Success score or attendance trend needs a faculty check-in')
     s.recommendations = s.risk === 'High' ? ['Advisor check-in within 48 hours','Subject-level remedial support','Weekly attendance and LMS review'] : s.placement_gap ? ['Join the coding and aptitude bridge cohort','Review a mock test in four weeks'] : ['Faculty mentor check-in','Review progress at next assessment']
     return s
   })
+  const median = values => {
+    const sorted = values.slice().sort((a,b)=>a-b)
+    if (!sorted.length) return 0
+    const middle = (sorted.length - 1) / 2
+    return (sorted[Math.floor(middle)] + sorted[Math.ceil(middle)]) / 2
+  }
+  const codingMedian = median(students.map(s=>s.coding_score))
+  const aptitudeMedian = median(students.map(s=>s.aptitude_score))
+  students.forEach(s=>{
+    s.placement_gap=s.cgpa>7.5&&(s.coding_score<codingMedian||s.aptitude_score<aptitudeMedian)
+    if(s.placement_gap&&!s.recommendations.some(action=>action.toLowerCase().includes('placement')||action.toLowerCase().includes('coding')))s.recommendations.push('Join the coding and aptitude bridge cohort; review a mock test in four weeks')
+  })
+  return students
 }
 
 export function makeDemoOverview(students) {

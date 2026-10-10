@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from io import BytesIO
 from pathlib import Path
+import re
+import unicodedata
 
 import numpy as np
 import pandas as pd
@@ -11,6 +14,40 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT / "data"
 MERGE_KEYS = ["student_id", "semester"]
+
+COLUMN_ALIASES = {
+    "student_id": {"studentid", "student_no", "student_number", "roll_no", "roll_number", "enrollment_id", "enrollment_no", "enrollment_number", "enrolment_id", "enrolment_no", "registration_id", "registration_no", "registration_number", "reg_no"},
+    "name": {"student_name", "full_name", "learner_name"},
+    "department": {"dept", "department_name", "branch", "programme", "program", "course"},
+    "semester": {"sem", "term", "current_semester", "current_term"},
+    "cgpa": {"gpa", "cumulative_gpa", "grade_point_average", "cgpa_out_of_10"},
+    "internal_marks": {"internal", "internal_score", "internal_assessment", "internal_assessment_marks", "sessional_marks"},
+    "exam_marks": {"exam", "exam_score", "final_marks", "end_sem_marks", "external_marks", "marks", "total_marks", "obtained_marks"},
+    "backlogs": {"active_backlogs", "backlog_count", "arrears"},
+    "attendance_pct": {"attendance", "attendance_percent", "attendance_percentage", "attendance_rate", "attend_pct", "attendance_pct"},
+    "login_frequency": {"login_count", "login_freq", "lms_logins", "lms_login_frequency", "logins_per_term"},
+    "assignment_completion": {"assignment", "assignment_percent", "assignment_completion_pct", "assignment_completion_percent", "assignment_completion_rate"},
+    "events": {"event_count", "events_attended", "event_participation"},
+    "certifications": {"certificates", "certification_count"},
+    "hackathons": {"hackathon_count"},
+    "aptitude_score": {"aptitude", "aptitude_marks", "aptitude_test_score"},
+    "coding_score": {"coding", "coding_marks", "programming_score", "coding_test_score"},
+    "mock_interviews": {"mock_interview", "mock_interview_count", "interviews_completed"},
+    "technical_score": {"skills", "skill_score", "technical_skills_score", "technical_assessment"},
+    "soft_skill_score": {"soft_skills", "soft_skill", "communication_score"},
+    "satisfaction_score": {"satisfaction", "student_satisfaction", "satisfaction_rating"},
+    "faculty_feedback_score": {"faculty_feedback", "faculty_rating"},
+}
+
+SOURCE_FEATURES = {
+    "academic": {"cgpa", "internal_marks", "exam_marks", "backlogs"},
+    "attendance": {"attendance_pct"},
+    "lms": {"login_frequency", "assignment_completion"},
+    "engagement": {"events", "certifications", "hackathons"},
+    "placement": {"aptitude_score", "coding_score", "mock_interviews"},
+    "skills": {"technical_score", "soft_skill_score"},
+    "feedback": {"satisfaction_score", "faculty_feedback_score"},
+}
 
 FIRST_NAMES = [
     "Aarav", "Aditi", "Aditya", "Ananya", "Arjun", "Diya", "Ishaan", "Kabir",
@@ -122,15 +159,14 @@ def integrate_sources(sources: dict[str, pd.DataFrame]) -> pd.DataFrame:
     if roster_source is None:
         raise ValueError("Upload students.csv with student_id, name, department, and semester columns, or a unified CSV that contains those fields.")
     roster = roster_source.copy()
-    rename = {"department": "department", "dept": "department", "student_name": "name", "current_semester": "semester"}
-    roster = roster.rename(columns={key: value for key, value in rename.items() if key in roster.columns})
     if "semester" not in roster:
         roster["semester"] = 6
     if "department" not in roster:
         roster["department"] = "Unassigned"
     if "name" not in roster:
         roster["name"] = roster["student_id"].astype(str)
-    roster["student_id"] = roster["student_id"].astype(str).str.strip()
+    roster["student_id"] = roster["student_id"].astype(str).str.strip().str.upper()
+    roster = roster.loc[roster["student_id"].ne("") & roster["student_id"].str.casefold().ne("nan")]
     roster["semester"] = pd.to_numeric(roster["semester"], errors="coerce").fillna(6).astype(int)
     roster = roster.drop_duplicates("student_id", keep="last")
 
@@ -142,12 +178,16 @@ def integrate_sources(sources: dict[str, pd.DataFrame]) -> pd.DataFrame:
         frame = frame.copy()
         if "student_id" not in frame:
             continue
-        frame["student_id"] = frame["student_id"].astype(str).str.strip()
+        frame["student_id"] = frame["student_id"].astype(str).str.strip().str.upper()
         if "semester" not in frame:
             frame["semester"] = roster["semester"].max()
         frame["semester"] = pd.to_numeric(frame["semester"], errors="coerce").fillna(roster["semester"].max()).astype(int)
         frame = frame.drop_duplicates(MERGE_KEYS, keep="last")
-        if key == "academic":
+        # A unified upload may serve as both the roster and the academic source.
+        # Do not merge that table with itself, which creates name_x/name_y columns.
+        if frame is roster_source or (key == "academic" and frame.equals(roster_source)):
+            merged = frame
+        elif key == "academic":
             merged = frame
         elif merged is None:
             merged = frame
@@ -157,22 +197,102 @@ def integrate_sources(sources: dict[str, pd.DataFrame]) -> pd.DataFrame:
             merged = merged.drop(columns=duplicate_cols)
     if merged is None:
         merged = roster[["student_id", "semester"]].copy()
-    return merged.merge(roster.drop(columns=["semester"], errors="ignore"), on="student_id", how="left", validate="many_to_one")
+    metadata = roster[[column for column in ("student_id", "name", "department", "year") if column in roster]].drop_duplicates("student_id")
+    if merged is None:
+        merged = roster[["student_id", "semester"]].copy()
+    merged = merged.drop(columns=[column for column in ("name", "department", "year") if column in merged], errors="ignore")
+    result = merged.merge(metadata, on="student_id", how="left", validate="many_to_one")
+    if len(result) and result["name"].isna().all():
+        raise ValueError("The student IDs in your roster and marks/attendance files do not match. Keep the same student_id (or roll_no) values in every CSV.")
+    unmatched = result.loc[result["name"].isna(), "student_id"].drop_duplicates()
+    if not unmatched.empty:
+        examples = ", ".join(unmatched.head(3).astype(str).tolist())
+        raise ValueError(f"{len(unmatched)} student ID(s) in marks/attendance data are missing from the roster (for example {examples}). Use matching IDs in every CSV.")
+    available = set(result.columns)
+    measures = set().union(*SOURCE_FEATURES.values())
+    if not available.intersection(measures):
+        raise ValueError("The uploaded files contain student details but no measurable academic, attendance, LMS, skills, or placement columns.")
+    return result
 
 
 def read_uploaded_tables(uploaded_files) -> dict[str, pd.DataFrame]:
-    """Read CSV uploads by filename; a single all-in-one CSV is accepted as academic data."""
-    sources: dict[str, pd.DataFrame] = {}
-    aliases = {"students": ("students", "roster"), "academic": ("academic", "marks", "grades"), "attendance": ("attendance",), "lms": ("lms", "learning"), "engagement": ("engagement", "activities"), "placement": ("placement",), "skills": ("skills",), "feedback": ("feedback",)}
+    """Read varied CSV exports, standardize common headers, and infer each source."""
+    sources: dict[str, list[tuple[str, pd.DataFrame]]] = {}
+    filename_aliases = {
+        "students": ("students", "student", "roster", "directory"),
+        "academic": ("academic", "marks", "grades", "exam", "result"),
+        "attendance": ("attendance", "attend"), "lms": ("lms", "learning", "assignment"),
+        "engagement": ("engagement", "activities", "events"), "placement": ("placement", "aptitude", "coding"),
+        "skills": ("skills", "skill"), "feedback": ("feedback", "survey"),
+    }
+
+    def normalize_header(value):
+        value = unicodedata.normalize("NFKD", str(value).replace("\ufeff", "")).encode("ascii", "ignore").decode().casefold()
+        return re.sub(r"[^a-z0-9]+", "_", value).strip("_")
+
+    aliases = {normalize_header(alias): target for target, values in COLUMN_ALIASES.items() for alias in (target, *values)}
     for uploaded in uploaded_files:
-        name = Path(uploaded.name).stem.lower()
-        frame = pd.read_csv(uploaded)
-        frame.columns = [column.strip().lower().replace(" ", "_") for column in frame.columns]
-        matched = next((source for source, names in aliases.items() if any(alias in name for alias in names)), None)
-        if matched is None and "student_id" in frame.columns and any(col in frame.columns for col in ("cgpa", "attendance", "lms", "attendance_pct")):
-            matched = "academic"
-        if matched:
-            sources[matched] = frame
-            if matched == "students" and any(col in frame.columns for col in ("cgpa", "attendance", "attendance_pct", "lms")):
-                sources["academic"] = frame
-    return sources
+        if isinstance(uploaded, tuple):
+            filename, content = uploaded
+            stream = BytesIO(content)
+        else:
+            filename, stream = getattr(uploaded, "name", "upload.csv"), uploaded
+            if hasattr(stream, "seek"):
+                stream.seek(0)
+        try:
+            frame = None
+            for encoding in ("utf-8-sig", "utf-8", "cp1252", "latin-1"):
+                try:
+                    if hasattr(stream, "seek"):
+                        stream.seek(0)
+                    # Preserve identifiers like 000731; convert measures downstream.
+                    frame = pd.read_csv(stream, encoding=encoding, sep=None, engine="python", dtype=str)
+                    break
+                except (UnicodeDecodeError, pd.errors.ParserError, ValueError):
+                    continue
+            if frame is None or frame.empty:
+                raise ValueError("CSV is empty or could not be parsed")
+        except Exception as error:
+            raise ValueError(f"Could not read '{filename}': {error}. Save it as a comma-separated CSV and try again.") from error
+        normalized = [normalize_header(column) for column in frame.columns]
+        frame.columns = [aliases.get(column, column) for column in normalized]
+        if frame.columns.duplicated().any():
+            duplicate_names = sorted(set(frame.columns[frame.columns.duplicated()].tolist()))
+            raise ValueError(f"'{filename}' has multiple columns that map to the same field: {', '.join(duplicate_names)}. Keep one column for each measure.")
+        if "student_id" not in frame and "id" in frame and "name" in frame:
+            frame = frame.rename(columns={"id": "student_id"})
+        if "student_id" not in frame:
+            raise ValueError(f"'{filename}' needs a student ID column (for example student_id, roll_no, enrollment_no, or registration_no).")
+        frame["student_id"] = frame["student_id"].astype(str).str.strip().str.upper()
+        frame = frame.loc[frame["student_id"].ne("") & frame["student_id"].str.casefold().ne("nan")]
+        stem = normalize_header(Path(str(filename)).stem)
+        matched = next((source for source, names in filename_aliases.items() if any(normalize_header(alias) in stem for alias in names)), None)
+        found_groups = [source for source, features in SOURCE_FEATURES.items() if set(frame.columns).intersection(features)]
+        has_roster = any(column in frame for column in ("name", "department", "year"))
+        if matched is None:
+            if len(found_groups) == 1:
+                matched = found_groups[0]
+            elif found_groups:
+                matched = "academic"  # unified student export: metrics remain together
+            elif has_roster:
+                matched = "students"
+            else:
+                raise ValueError(f"Could not identify the data in '{filename}'. Use recognizable headers such as CGPA, attendance, assignment_completion, coding_score, or name.")
+        sources.setdefault(matched, []).append((str(filename), frame))
+        if matched == "students" and found_groups:
+            # Student exports often contain identity plus all measured indicators.
+            sources.setdefault("academic", []).append((str(filename), frame))
+        # Keep identity metadata available when a single unified file contains metrics.
+        if has_roster and found_groups and matched != "students":
+            sources.setdefault("students", []).append((str(filename), frame[[column for column in ("student_id", "name", "department", "year", "semester") if column in frame]]))
+    result = {}
+    for source, named_frames in sources.items():
+        combined = pd.concat([frame for _, frame in named_frames], ignore_index=True)
+        keys = MERGE_KEYS if "semester" in combined else ["student_id"]
+        duplicates = combined.loc[combined.duplicated(keys, keep=False), keys].drop_duplicates()
+        if not duplicates.empty:
+            example = ", ".join(str(value) for value in duplicates.iloc[0].tolist())
+            names = ", ".join(dict.fromkeys(name for name, _ in named_frames))
+            raise ValueError(f"The {source} data has duplicate records for the same student/semester (for example {example}) in {names}. Keep one row per key.")
+        result[source] = combined
+    return result

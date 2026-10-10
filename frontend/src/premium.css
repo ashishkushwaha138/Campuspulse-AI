@@ -153,6 +153,27 @@ body {
 .chat-related button, .chat-prompts button { border-color: #314034; background: #142019; }
 .chat-related button:hover, .chat-prompts button:hover { border-color: #927b4d; }
 
+.data-quality-banner, .data-coverage-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid #6a542e;
+  border-radius: 10px;
+  background: #282419;
+  color: #dec997;
+  font-size: 11px;
+  line-height: 1.6;
+}
+.data-quality-banner { margin: 0 0 17px; padding: 12px 14px; }
+.data-quality-banner svg, .data-coverage-note svg { flex: 0 0 auto; margin-top: 1px; color: #e3bb68; }
+.data-quality-banner b { color: #f1ddb0; }
+.data-coverage-note { margin: 13px 0 4px; padding: 10px 11px; font-size: 9px; }
+.icon-button:focus-visible, .button:focus-visible, .nav-link:focus-visible, .student-table tr:focus-visible,
+.copilot-launch:focus-visible, .pagination button:focus-visible, .help-button:focus-visible {
+  outline: 2px solid #e4c67f;
+  outline-offset: 2px;
+}
+
 @media (max-width: 960px) {
   .campus-snapshot { grid-template-columns: minmax(230px,1fr) auto; gap: 16px; }
   .snapshot-score { border-right: 0; padding-right: 0; }

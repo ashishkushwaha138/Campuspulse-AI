@@ -29,12 +29,17 @@ def score_students(frame: pd.DataFrame) -> pd.DataFrame:
     data = add_score_components(frame)
     data["rule_risk"] = data.apply(band_risk, axis=1)
     data["risk_reasons"] = data.apply(risk_reason, axis=1)
+    placement_observed = data.loc[~data["placement_missing"]]
+    coding_median = placement_observed["coding_score"].median() if len(placement_observed) else float("inf")
+    aptitude_median = placement_observed["aptitude_score"].median() if len(placement_observed) else float("inf")
     data["placement_gap"] = (
         (data["cgpa"] > 7.5)
-        & ((data["coding_score"] < data["coding_score"].quantile(0.5)) | (data["aptitude_score"] < data["aptitude_score"].quantile(0.5)))
+        & ~data["placement_missing"]
+        & ((data["coding_score"] < coding_median) | (data["aptitude_score"] < aptitude_median))
     )
     data["placement_ready"] = (
         (data["cgpa"] >= 7.5) & (data["aptitude_score"] >= 70) & (data["coding_score"] >= 65)
+        & ~data["placement_missing"]
     )
     return data
 
